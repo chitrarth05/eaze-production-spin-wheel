@@ -627,6 +627,23 @@ async function doTestReset(){
     showToast('Test data reset ✓');
   } catch(e){ showToast('Reset failed: '+e.message); }
 }
+
+// ── Tap-to-spin hot zone (wheel top → bottom of screen) ───────────────
+(function(){
+  const ws=document.getElementById('ws');
+  if(!ws) return;
+  ws.addEventListener('click',function(e){
+    if(!ws.classList.contains('on')) return;                       // wheel screen not active
+    if(document.querySelector('.bkdrop.on, .sbg.on')) return;       // a modal / sheet is open
+    if(e.target.closest('button,a,input,select,textarea')) return;  // real controls keep their own behaviour
+    const sb=document.getElementById('sb');
+    if(!sb||sb.disabled) return;                                    // no free spin → nothing changes
+    const wrap=document.querySelector('.wwrap');
+    if(!wrap) return;
+    if(e.clientY < wrap.getBoundingClientRect().top) return;        // above the wheel → ignore
+    doSpin();
+  });
+})();
 </script>
 </body>
 </html>
