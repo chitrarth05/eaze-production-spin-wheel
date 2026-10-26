@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Spin wheel backend for eaze — 1 daily free spin, coin rewards via CSV upload to Free Coins API",
+  "engines": {
+    "node": ">=22.23.4 <23"
+  },
   "scripts": {
     "start": "node src/server.js",
     "dev": "node src/server.js",
